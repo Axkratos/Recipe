@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Receipe
 
 def receipes(request):
@@ -24,12 +24,28 @@ def receipes(request):
 
     context = {'receipes': queryset, 'search_query': search_query}
     return render(request, 'recipes.html', context)
-# delete ko lagi
+
+def upload_receipes(request):
+    if request.method == "POST":
+        data = request.POST
+        receipe_image = request.FILES.get('receipe_image')
+        receipe_name = data.get('receipe_name')
+        receipe_description = data.get('receipe_description')
+
+        if receipe_name and receipe_description and receipe_image:
+            Receipe.objects.create(
+                receipe_image=receipe_image,
+                receipe_name=receipe_name,
+                receipe_description=receipe_description
+            )
+            return redirect('receipes')
+
+    return render(request, 'upload.html')
+
 def delete_receipe(request, id):
     queryset = get_object_or_404(Receipe, id=id)
     queryset.delete()
-    return render(request, 'recipes.html', {'success': True})
-
+    return redirect('receipes')
 
 def update_receipe(request, id):
     queryset = get_object_or_404(Receipe, id=id)
@@ -47,7 +63,7 @@ def update_receipe(request, id):
             queryset.receipe_image = receipe_image
 
         queryset.save()
-        return render(request, 'recipes.html', {'success': True, 'receipe': queryset})
+        return redirect('receipes')
 
     context = {'receipe': queryset}
     return render(request, 'updatereceipes.html', context)

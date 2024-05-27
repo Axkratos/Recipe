@@ -6,91 +6,192 @@
     <title>Recipe Submission Form</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .recipe-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin-bottom: 20px;
-        }
-        .recipe-title {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        .recipe-description {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        .form-title {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input[type="text"],
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-        .form-group input[type="file"] {
-            display: block;
-        }
-        .form-group button {
-            padding: 10px 15px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-upload-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-upload-container form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.search-upload-container .form-group {
+    margin: 0;
+    margin-right: 10px;
+}
+
+.search-upload-container input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    margin-right: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-upload-container button {
+    padding: 10px 15px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-upload-container button:hover {
+    background-color: #0056b3;
+}
+
+.upload-button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: #218838;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.form-group button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.form-group button:hover {
+    background-color: #218838;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+li:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+li h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+li p {
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+li img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+li a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    color: #110707;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+li a.delete-button {
+    background-color: #dc3545;
+}
+
+li a.delete-button:hover {
+    background-color: #c82333;
+}
+
+li a.update-button {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+li a.update-button:hover {
+    background-color: #e0a800;
+    color: #212529;
+}
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="form-title">Submit Your Own Recipe</h2>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="receipe_name">Recipe Name</label>
-                <input type="text" id="receipe_name" name="receipe_name" required>
-            </div>
-            <div class="form-group">
-                <label for="receipe_description">Recipe Description</label>
-                <textarea id="receipe_description" name="receipe_description" rows="5" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="receipe_image">Upload Image</label>
-                <input type="file" id="receipe_image" name="receipe_image" accept="image/*" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Submit Recipe</button>
-            </div>
-        </form>
-
-        <div>
+        <div class="search-upload-container">
             <form method="GET">
-                <div>
+                <div class="form-group">
                     <label for="search">Search Food</label>
                     <input name="search" type="text" class="form-control" value="{{ search_query }}">
                 </div>
                 <button type="submit">Search</button>
             </form>
+            <a href="{% url 'upload_receipes' %}" class="upload-button">Upload Recipe</a>
         </div>
 
         <h1>Recipe List</h1>
