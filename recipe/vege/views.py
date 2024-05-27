@@ -24,11 +24,12 @@ def receipes(request):
 
     context = {'receipes': queryset, 'search_query': search_query}
     return render(request, 'recipes.html', context)
-
+# delete ko lagi
 def delete_receipe(request, id):
     queryset = get_object_or_404(Receipe, id=id)
     queryset.delete()
     return render(request, 'recipes.html', {'success': True})
+
 
 def update_receipe(request, id):
     queryset = get_object_or_404(Receipe, id=id)
