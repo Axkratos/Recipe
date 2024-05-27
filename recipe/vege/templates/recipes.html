@@ -84,6 +84,18 @@
                 <button type="submit">Submit Recipe</button>
             </div>
         </form>
+        
+        <h1>Recipe List</h1>
+    
+    <ul>
+        {% for recipe in receipes %}
+            <li>
+                <h2>{{ recipe.receipe_name }}</h2>
+                 <p>{{ recipe.receipe_description }}</p>
+                <img src="{{ recipe.receipe_image.url }}" alt="{{ recipe.receipe_name }}" width="300">
+            </li>
+        {% endfor %}
+    </ul>
     </div>
 </body>
 </html>

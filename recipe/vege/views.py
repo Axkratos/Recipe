@@ -15,5 +15,6 @@ def receipes(request):
                 receipe_description=receipe_description
             )
             return render(request, 'recipes.html', {'success': True})
-
-    return render(request, 'recipes.html')
+    queryset= Receipe.objects.all()
+    context={'receipes':queryset}
+    return render(request, 'recipes.html',context)
