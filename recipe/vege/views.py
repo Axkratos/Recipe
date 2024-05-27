@@ -18,3 +18,8 @@ def receipes(request):
     queryset= Receipe.objects.all()
     context={'receipes':queryset}
     return render(request, 'recipes.html',context)
+
+def delete_receipe(request,id):
+    queryset=Receipe.objects.get(id=id)
+    queryset.delete()
+    return render(request, 'recipes.html', {'success': True})
