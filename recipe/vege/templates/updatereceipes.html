@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Submission Form</title>
+    <title>Update Recipe</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,48 +63,29 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="form-title">Submit Your Own Recipe</h2>
+        {% if success %}
+            <p>Recipe updated successfully!</p>
+        {% endif %}
+
+        <h2 class="form-title">Update Recipe</h2>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 <label for="receipe_name">Recipe Name</label>
-                <input type="text" id="receipe_name" name="receipe_name" required>
+                <input type="text" id="receipe_name" value="{{ receipe.receipe_name }}" name="receipe_name" required>
             </div>
             <div class="form-group">
                 <label for="receipe_description">Recipe Description</label>
-                <textarea id="receipe_description" name="receipe_description" rows="5" required></textarea>
+                <textarea id="receipe_description" name="receipe_description" rows="5" required>{{ receipe.receipe_description }}</textarea>
             </div>
             <div class="form-group">
                 <label for="receipe_image">Upload Image</label>
-                <input type="file" id="receipe_image" name="receipe_image" accept="image/*" required>
+                <input type="file" id="receipe_image" name="receipe_image" accept="image/*">
             </div>
             <div class="form-group">
-                <button type="submit">Submit Recipe</button>
+                <button type="submit">Update Recipe</button>
             </div>
         </form>
-
-        <div>
-            <form method="GET">
-                <div>
-                    <label for="search">Search Food</label>
-                    <input name="search" type="text" class="form-control" value="{{ search_query }}">
-                </div>
-                <button type="submit">Search</button>
-            </form>
-        </div>
-
-        <h1>Recipe List</h1>
-        <ul>
-            {% for recipe in receipes %}
-                <li>
-                    <h2>{{ recipe.receipe_name }}</h2>
-                    <p>{{ recipe.receipe_description }}</p>
-                    <img src="{{ recipe.receipe_image.url }}" alt="{{ recipe.receipe_name }}" width="300">
-                    <a href="{% url 'delete_receipes' recipe.id %}">Delete</a>
-                    <a href="{% url 'update_receipes' recipe.id %}">Update</a>
-                </li>
-            {% endfor %}
-        </ul>
     </div>
 </body>
 </html>
