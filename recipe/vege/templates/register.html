@@ -63,7 +63,12 @@
 </head>
 <body>
     <div class="container">
-        <form id="registerForm">
+        {% if error_message %}
+        <div class="error">{{ error_message }}</div>
+    {% endif %}
+
+        <form id="registerForm" method="POST">
+            {% csrf_token %}
             <h2>Register</h2>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
